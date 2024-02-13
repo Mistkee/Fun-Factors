@@ -8,13 +8,13 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         Invoke("DestroyBullet", 2f);
+        GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 
     void Update()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
+       
     }
-
     void DestroyBullet()
     {
         Destroy(gameObject);

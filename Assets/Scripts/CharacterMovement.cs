@@ -8,11 +8,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] GameObject bullet;
     Vector3 input;
+    Animator animator;
     Rigidbody rb;
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     
@@ -32,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
         //Player Shooting
         if(Input.GetMouseButtonDown(0))
         {
+            animator.SetTrigger("Throw");
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z) + (cam.transform.forward*1.5f), cam.transform.rotation);
         }
     }
