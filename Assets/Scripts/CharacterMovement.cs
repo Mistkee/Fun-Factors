@@ -6,12 +6,13 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] float speed, camSensitivity;
     [SerializeField] Camera cam;
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject bullet, particuleEffect;
     Vector3 input;
     Animator animator;
     Rigidbody rb;
     void Awake()
     {
+        particuleEffect.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -34,7 +35,11 @@ public class CharacterMovement : MonoBehaviour
         //Player Shooting
         if(Input.GetMouseButtonDown(0))
         {
+            particuleEffect.SetActive(true);
+            Invoke("StopParticule", 0.2f);
+            animator.SetTrigger("CameraShake");
             animator.SetTrigger("Throw");
+            
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z) + (cam.transform.forward*1.5f), cam.transform.rotation);
         }
     }
@@ -45,5 +50,10 @@ public class CharacterMovement : MonoBehaviour
         {
             transform.position += transform.forward * speed * Time.deltaTime;
         }
+    }
+
+    private void StopParticule()
+    {
+        particuleEffect.SetActive(false);
     }
 }

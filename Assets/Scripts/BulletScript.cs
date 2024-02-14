@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] float speed, rotationSpeed;
+    [SerializeField] ParticleSystem particle;
     void Start()
     {
         Invoke("DestroyBullet", 2f);
@@ -18,5 +19,10 @@ public class BulletScript : MonoBehaviour
     void DestroyBullet()
     {
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        particle.Play();
     }
 }
