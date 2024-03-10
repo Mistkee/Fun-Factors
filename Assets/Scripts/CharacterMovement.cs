@@ -35,6 +35,7 @@ public class CharacterMovement : MonoBehaviour
         //Player Shooting
         if(Input.GetMouseButtonDown(0))
         {
+            SoundEffects.instance.PlaySFX(SoundEffects.SoundFX.throws);
             particuleEffect.SetActive(true);
             Invoke("StopParticule", 0.2f);
             animator.SetTrigger("CameraShake");

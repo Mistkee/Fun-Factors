@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     static public GameManager Instance;
 
     [SerializeField] TextMeshProUGUI score, worldDmg;
-    [SerializeField] GameObject scoreBg, character;
+    [SerializeField] GameObject scoreBg, character, groupEnemies;
+    GameObject[] enemies;
+    
     int intScore;
 
     private void Awake()
@@ -23,6 +25,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(enemies.Length <= 0 )
+        {
+            Instantiate(groupEnemies, new Vector3(24.9454727f, 1.18700004f, 15.3873024f), transform.rotation) ;
+        }
         if (intScore < 10)
         {
             score.text = "000" + intScore;
@@ -35,10 +42,11 @@ public class GameManager : MonoBehaviour
         {
             score.text = "0" + intScore;
         }
-        else if (intScore >= 1000 && intScore < 10000)
+        else if (intScore >= 1000 )
         {
             score.text = "" + intScore;
         }
+
 
     }
 
@@ -46,12 +54,14 @@ public class GameManager : MonoBehaviour
     {
         if (life > 0)
         {
+            SoundEffects.instance.PlaySFX(SoundEffects.SoundFX.score);
             score.GetComponent<Animator>().SetTrigger("Scoring");
             scoreBg.GetComponent<Animator>().SetTrigger("Scoring");
             worldDmg.color = new Color(255, 0, 0, 255);
         }
         else
         {
+            SoundEffects.instance.PlaySFX(SoundEffects.SoundFX.bigScore);
             worldDmg.color =  Color.yellow;
         }
         

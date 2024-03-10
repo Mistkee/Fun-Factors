@@ -12,7 +12,8 @@ public class TargetScript : MonoBehaviour
     Vector3 scale;
     void Start()
     {
-        
+        cursor = GameObject.Find("Cursor");
+        worldUI = GameObject.Find("World Canvas");
         scale = transform.localScale;
     }
 
@@ -26,23 +27,25 @@ public class TargetScript : MonoBehaviour
         if(collision.gameObject.CompareTag("Chakram"))
         {
 
-           
-
-
             damage = Random.Range(70, 120);
             life -= damage;
             
             if (life <= 0)
             {
+                SoundEffects.instance.PlaySFX(SoundEffects.SoundFX.kill);
                 cursor.GetComponent<Animator>().SetTrigger("Kill");
                 GameManager.Instance.Killing();
                 CutEnnemy();
             }
+            else
+            {
+                SoundEffects.instance.PlaySFX(SoundEffects.SoundFX.hit);
+            }
             worldUI.transform.position = transform.position + new Vector3(2, 2, 0);
             GameManager.Instance.IncreaseScore(damage, life);
             cursor.GetComponent<Animator>().SetTrigger("Attack");
-            height = Mathf.Abs(collision.gameObject.transform.position.y);
 
+            GetComponent<Rigidbody>().AddForce(transform.up*0.5f, ForceMode.Impulse);
 
         }
     }

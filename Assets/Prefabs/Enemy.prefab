@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4423436310637241213}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particules: {fileID: 6656637239306162864, guid: 760428798043d124e916db843d3ebd44, type: 3}
+  cursor: {fileID: 0}
+  worldUI: {fileID: 0}
+  life: 0
 --- !u!54 &4423436310637241213
 Rigidbody:
   m_ObjectHideFlags: 0
